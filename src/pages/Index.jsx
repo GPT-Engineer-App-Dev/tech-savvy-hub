@@ -1,9 +1,11 @@
 import { Box, Button, Container, Heading, Image, Stack, Text } from "@chakra-ui/react";
+import Header from "../components/Header";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
 
 const Index = () => {
   return (
     <Box>
+      <Header />
       <Box bg="gray.50" py={20}>
         <Container maxW="container.lg">
           <Stack direction={["column", "row"]} spacing={8} align="center">
