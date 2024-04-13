@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Button, Container, Heading, HStack, Input, Stack, Tag, Text, VStack } from "@chakra-ui/react";
 import SpecialtyFilter from "../components/SpecialtyFilter";
+import MessageModal from "../components/MessageModal";
 
 const developers = [
   {
@@ -58,6 +59,8 @@ const developers = [
 const Developers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDeveloper, setSelectedDeveloper] = useState(null);
 
   const handleSpecialtyChange = (specialty) => {
     const index = selectedSpecialties.indexOf(specialty);
@@ -75,6 +78,15 @@ const Developers = () => {
 
     return (nameMatch || locationMatch) && specialtiesMatch;
   });
+
+  const openModal = (developer) => {
+    setSelectedDeveloper(developer);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Box py={10}>
@@ -98,13 +110,14 @@ const Developers = () => {
                   </Tag>
                 ))}
               </HStack>
-              <Button mt={4} colorScheme="blue">
+              <Button mt={4} colorScheme="blue" onClick={() => openModal(dev)}>
                 Message
               </Button>
             </Box>
           ))}
         </VStack>
       </Container>
+      <MessageModal isOpen={isModalOpen} onClose={closeModal} developer={selectedDeveloper} />
     </Box>
   );
 };
